@@ -37,30 +37,32 @@ export interface PayResult {
 
 /**
  * Firebase is only initialised in the browser when valid config env vars are
- * present. During SSR, at build time, or in a misconfigured local setup the
- * `functions` and `db` exports may be null, so every API call goes through
- * these guards instead of touching the SDK at module scope.
+ * present. When a developer clones the repo without their own .env.local, or
+ * during SSR / build, `functions` and `db` are null. Rather than crashing the
+ * page on mount, read-style calls return empty results and write-style calls
+ * throw a friendly error only when the user actually triggers them.
  */
+export const isFirebaseConfigured = () => Boolean(db && functions);
+
+const NOT_CONFIGURED_MESSAGE =
+  "Booking is currently unavailable. Please try again later or reach out via the contact section.";
+
 function requireFunctions(): Functions {
-  if (!functions) {
-    throw new Error(
-      "Firebase is not configured. Add your Firebase credentials to .env.local to enable bookings.",
-    );
-  }
+  if (!functions) throw new Error(NOT_CONFIGURED_MESSAGE);
   return functions;
 }
 
 function requireDb(): Firestore {
-  if (!db) {
-    throw new Error(
-      "Firebase is not configured. Add your Firebase credentials to .env.local to enable bookings.",
-    );
-  }
+  if (!db) throw new Error(NOT_CONFIGURED_MESSAGE);
   return db;
 }
 
-/** Public read of active services straight from Firestore (allowed by rules). */
+/**
+ * Public read of active services. Returns [] when Firebase isn't configured
+ * so the page can render without crashing on mount.
+ */
 export async function fetchServices(): Promise<ApiService[]> {
+  if (!isFirebaseConfigured()) return [];
   const snap = await getDocs(
     query(collection(requireDb(), "services"), where("isActive", "==", true)),
   );
@@ -71,18 +73,28 @@ export async function fetchServices(): Promise<ApiService[]> {
   return rows.sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
-// Callables are wrapped so `httpsCallable` runs at call time, not on import.
-// If we ran it at import time and `functions` was null, the whole page would
-// crash with "null is not an object (evaluating 'functionsInstance._url')".
-function call<Req, Res>(name: string) {
+/**
+ * Callable-style wrappers. Reads (`getAvailability`) resolve to empty data
+ * when Firebase is missing; writes reject with a clear error so the UI can
+ * surface it after the user acts, not on page load.
+ */
+function callableRead<Req, Res>(name: string, emptyValue: Res) {
+  return async (data: Req): Promise<{ data: Res }> => {
+    if (!isFirebaseConfigured()) return { data: emptyValue };
+    return httpsCallable<Req, Res>(requireFunctions(), name)(data);
+  };
+}
+
+function callableWrite<Req, Res>(name: string) {
   return (data: Req) => httpsCallable<Req, Res>(requireFunctions(), name)(data);
 }
 
-export const getAvailability = call<{ year: number; month: number }, AvailabilityDay[]>(
-  "getAvailability",
-);
+export const getAvailability = callableRead<
+  { year: number; month: number },
+  AvailabilityDay[]
+>("getAvailability", []);
 
-export const holdBooking = call<
+export const holdBooking = callableWrite<
   {
     serviceId: string;
     date: string;
@@ -95,14 +107,16 @@ export const holdBooking = call<
   HoldResult
 >("holdBooking");
 
-export const payBooking = call<{ reference: string; cardLast4: string }, PayResult>(
-  "payBooking",
-);
+export const payBooking = callableWrite<
+  { reference: string; cardLast4: string },
+  PayResult
+>("payBooking");
 
-export const confirmFreeBooking = call<{ reference: string }, PayResult>(
+export const confirmFreeBooking = callableWrite<{ reference: string }, PayResult>(
   "confirmFreeBooking",
 );
 
-export const cancelBooking = call<{ reference: string; email: string }, { ok: boolean }>(
-  "cancelBooking",
-);
+export const cancelBooking = callableWrite<
+  { reference: string; email: string },
+  { ok: boolean }
+>("cancelBooking");
