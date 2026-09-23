@@ -47,7 +47,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-deep-blue text-white">
-      {/* Soft ambient glow — decorative */}
+      {/* Soft ambient glow, decorative */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -69,14 +69,14 @@ export default function Footer() {
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="flex items-center gap-2 text-left text-lg font-semibold"
-              aria-label="Grow With Roja — back to top"
+              aria-label="Grow With Roja, back to top"
             >
               <LeafMark className="h-5 w-5 text-fresh-green" />
               Grow With{' '}
               <span className="font-display italic text-fresh-green">Roja</span>
             </button>
             <p className="mt-4 text-[15px] leading-relaxed text-white/70">
-              Life &amp; mindset coaching for thoughtful people — NLP, EFT,
+              Life &amp; mindset coaching for thoughtful people. NLP, EFT,
               Ho&apos;oponopono and deep belief work, online via Zoom.
             </p>
 
@@ -140,7 +140,7 @@ export default function Footer() {
             >
               {status === 'success' && (
                 <span className="text-fresh-green">
-                  Thank you — you&apos;re on the list.
+                  Thank you, you&apos;re on the list.
                 </span>
               )}
               {status === 'error' && (

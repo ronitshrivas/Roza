@@ -108,13 +108,21 @@ export default function Hero() {
             <span className="sr-only">{HEADLINE}</span>
             <span aria-hidden="true">
               {HEADLINE_WORDS.map((word, wi) => (
-                <span key={wi} className="inline-block">
-                  {word.split('').map((ch, ci) => (
-                    <span key={ci} data-char className="inline-block will-change-transform">
-                      {ch}
-                    </span>
-                  ))}
-                  {wi < HEADLINE_WORDS.length - 1 ? ' ' : ''}
+                <span key={wi}>
+                  <span className="inline-block">
+                    {word.split('').map((ch, ci) => (
+                      <span
+                        key={ci}
+                        data-char
+                        className="inline-block will-change-transform"
+                      >
+                        {ch}
+                      </span>
+                    ))}
+                  </span>
+                  {wi < HEADLINE_WORDS.length - 1 && (
+                    <span className="inline-block">&nbsp;</span>
+                  )}
                 </span>
               ))}
             </span>
@@ -124,8 +132,8 @@ export default function Hero() {
             data-hero
             className="mt-6 max-w-[46ch] text-base leading-[1.65] text-text-body sm:text-[17px] lg:text-lg"
           >
-            I help thoughtful people move past emotional exhaustion and self-doubt —
-            using NLP, EFT, Ho&apos;oponopono and deep belief work — so they can set
+            I help thoughtful people move past emotional exhaustion and self-doubt,
+            using NLP, EFT, Ho&apos;oponopono and deep belief work, so they can set
             boundaries, break old patterns, and feel like themselves again.
           </p>
 
@@ -199,7 +207,7 @@ export default function Hero() {
               Signature
             </span>
             <span className="text-[12px] font-medium leading-snug text-deep-blue sm:text-[13px]">
-              4-week signature journey —{' '}
+              4-week signature journey,{' '}
               <span className="font-display italic">Reclaim Your Power</span>
             </span>
           </div>
