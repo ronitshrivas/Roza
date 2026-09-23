@@ -22,7 +22,7 @@ const STAGES: Stage[] = [
     week: 'Week 1',
     title: 'See',
     icon: Eye,
-    copy: "Map your patterns with total honesty and zero judgment. You can't change what you can't see — this week, you finally see it.",
+    copy: "Map your patterns with total honesty and zero judgment. You can't change what you can't see - this week, you finally see it.",
   },
   {
     week: 'Week 2',
@@ -34,7 +34,7 @@ const STAGES: Stage[] = [
     week: 'Week 3',
     title: 'Rewire',
     icon: Sparkles,
-    copy: 'NLP and belief work to install new responses — new self-talk, new boundaries, new defaults.',
+    copy: 'NLP and belief work to install new responses - new self-talk, new boundaries, new defaults.',
   },
   {
     week: 'Week 4',
@@ -364,7 +364,7 @@ export default function Program() {
         </div>
 
         <p className="prog-fade mt-6 text-center text-sm text-green-tint/90">
-          Investment shared on your discovery call — payment plans available.
+          Investment shared on your discovery call - payment plans available.
         </p>
 
         {/* CTA */}

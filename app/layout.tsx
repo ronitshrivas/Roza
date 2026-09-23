@@ -23,11 +23,11 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://growwithroja.com"),
-  title: "Grow With Roja — Mindset & Life Coaching",
+  title: "Grow With Roja - Mindset & Life Coaching",
   description:
-    "Grow With Roja — life & mindset coaching with NLP, EFT and Ho'oponopono. Set boundaries, break old patterns, feel like yourself again.",
+    "Grow With Roja - life & mindset coaching with NLP, EFT and Ho'oponopono. Set boundaries, break old patterns, feel like yourself again.",
   openGraph: {
-    title: "Grow With Roja — Mindset & Life Coaching",
+    title: "Grow With Roja - Mindset & Life Coaching",
     description:
       "Life & mindset coaching with NLP, EFT and Ho'oponopono. Set boundaries, break old patterns, feel like yourself again.",
     images: ["/roja-hero.png"],

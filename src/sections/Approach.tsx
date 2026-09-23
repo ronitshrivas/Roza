@@ -22,7 +22,7 @@ const MODALITIES = [
     sub: 'Emotional Freedom Technique',
     icon: '/icon-eft.svg',
     summary:
-      'Gentle tapping on acupressure points while we talk — it calms the nervous system so change can actually stick.',
+      'Gentle tapping on acupressure points while we talk - it calms the nervous system so change can actually stick.',
     detail:
       "In a session: I'll guide you through a simple tapping sequence you can repeat anytime anxiety spikes.",
   },
@@ -31,7 +31,7 @@ const MODALITIES = [
     sub: 'Reconciliation & release',
     icon: '/icon-hooponopono.svg',
     summary:
-      'A Hawaiian practice of reconciliation and release — four phrases that help you let go of old weight.',
+      'A Hawaiian practice of reconciliation and release - four phrases that help you let go of old weight.',
     detail:
       'In a session: we use it to close loops with people, memories, or versions of yourself you still carry.',
   },
@@ -113,7 +113,7 @@ export default function Approach() {
             transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
             className="mt-5 text-[17px] leading-[1.65] text-text-body"
           >
-            Every session blends a few of these — always explained, always at your pace.
+            Every session blends a few of these - always explained, always at your pace.
             Nothing is ever done <em>to</em> you.
           </motion.p>
         </div>

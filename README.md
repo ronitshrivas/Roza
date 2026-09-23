@@ -1,4 +1,4 @@
-# Grow With Roja — Next.js + Firebase
+# Grow With Roja - Next.js + Firebase
 
 A standalone port of the finished "Grow With Roja" coaching website to **Next.js 14 (App Router) + TypeScript + Tailwind CSS v3 + Firebase** (Auth, Firestore, Cloud Functions, Hosting).
 
@@ -28,11 +28,11 @@ firebase.json         # hosting + functions config
 
 ## Firestore data model
 
-- `services/{slug}` — slug, title, description, durationMin, priceCents, currency, isActive, sortOrder. Seeded: Discovery Call (free, 20 min), 1:1 Coaching Session (60 min), Reclaim Your Power — 4-Week Program.
-- `availabilitySlots/{id}` — kind (`one_off` | `recurring`), date | weekday, startTime, endTime, location, note, isActive.
-- `blockedDates/{id}` — startDate, endDate, reason.
-- `bookings/{id}` — reference (`GWR-YYYY-XXXX`), serviceId, date, startTime, endTime, client name/email/phone/notes, status (`held` | `confirmed` | `cancelled` | `rescheduled` | `completed`), paymentStatus, paymentRef, zoomJoinUrl, holdExpiresAt, timestamps.
-- `settings/site` — business info.
+- `services/{slug}` - slug, title, description, durationMin, priceCents, currency, isActive, sortOrder. Seeded: Discovery Call (free, 20 min), 1:1 Coaching Session (60 min), Reclaim Your Power - 4-Week Program.
+- `availabilitySlots/{id}` - kind (`one_off` | `recurring`), date | weekday, startTime, endTime, location, note, isActive.
+- `blockedDates/{id}` - startDate, endDate, reason.
+- `bookings/{id}` - reference (`GWR-YYYY-XXXX`), serviceId, date, startTime, endTime, client name/email/phone/notes, status (`held` | `confirmed` | `cancelled` | `rescheduled` | `completed`), paymentStatus, paymentRef, zoomJoinUrl, holdExpiresAt, timestamps.
+- `settings/site` - business info.
 
 ## Booking business rules (mirrored in `functions/`)
 
@@ -78,7 +78,7 @@ npm install
 npm run build       # type-checks and compiles to lib/
 ```
 
-Functions env config (create `functions/.env` — loaded automatically on deploy):
+Functions env config (create `functions/.env` - loaded automatically on deploy):
 
 ```
 STRIPE_SECRET_KEY=sk_test_...

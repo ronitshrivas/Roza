@@ -105,8 +105,8 @@ export default function Hero() {
             ))}
           </h1>
           <p data-hero className="mt-6 max-w-[46ch] text-[17px] leading-[1.65] text-text-body lg:text-lg">
-            I help thoughtful people move past emotional exhaustion and self-doubt —
-            using NLP, EFT, Ho'oponopono and deep belief work — so they can set
+            I help thoughtful people move past emotional exhaustion and self-doubt -
+            using NLP, EFT, Ho'oponopono and deep belief work - so they can set
             boundaries, break old patterns, and feel like themselves again.
           </p>
 
@@ -170,7 +170,7 @@ export default function Hero() {
               Signature
             </span>
             <span className="text-[13px] font-medium leading-snug text-deep-blue">
-              4-week signature journey —<br />
+              4-week signature journey -<br />
               <span className="font-display italic">Reclaim Your Power</span>
             </span>
           </div>

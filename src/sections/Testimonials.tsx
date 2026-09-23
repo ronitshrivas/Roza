@@ -24,7 +24,7 @@ const TESTIMONIALS = [
   {
     img: '/testimonial-3.jpg',
     quote:
-      "Roja makes deep work feel safe. EFT sounded strange to me — now it's the first thing I reach for when anxiety hits.",
+      "Roja makes deep work feel safe. EFT sounded strange to me - now it's the first thing I reach for when anxiety hits.",
     name: 'Sofia R.',
     context: 'Teacher',
   },

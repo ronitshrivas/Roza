@@ -180,7 +180,7 @@ function SummaryRail({
               {[
                 'Confirmation email lands in your inbox with all the details.',
                 'A gentle reminder arrives 24 hours before your session.',
-                'Join via the Zoom link — it activates 15 minutes early.',
+                'Join via the Zoom link - it activates 15 minutes early.',
               ].map((text, i) => (
                 <li key={i} className="flex gap-3">
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-fresh-green-600 shadow-card">
@@ -228,7 +228,7 @@ function SummaryRail({
                 <div>
                   <dt className="font-semibold text-deep-blue">Price</dt>
                   <dd className="text-text-body">
-                    {service ? (service.price === 0 ? 'Free' : `$${service.price}`) : '—'}
+                    {service ? (service.price === 0 ? 'Free' : `$${service.price}`) : '-'}
                   </dd>
                 </div>
               </div>
@@ -559,7 +559,7 @@ function StepTime({
                 className="rounded-[20px] border border-grey-line bg-soft-grey p-4 sm:p-5"
               >
                 <p className="text-sm font-semibold text-deep-blue">
-                  {formatDate(draft.date)} — available times
+                  {formatDate(draft.date)} - available times
                 </p>
                 {slots === undefined ? (
                   <div className="mt-4 flex flex-col items-center gap-2 py-4 text-center">
@@ -570,7 +570,7 @@ function StepTime({
                   <div className="mt-4 flex flex-col items-center gap-2 py-4 text-center">
                     <Leaf className="h-8 w-8 text-fresh-green/60" aria-hidden="true" />
                     <p className="text-sm text-text-body">
-                      Roja is fully booked this day — try another date
+                      Roja is fully booked this day - try another date
                     </p>
                   </div>
                 ) : (
@@ -837,10 +837,10 @@ function StepPayment({
         pushToast('Payment successful (demo)')
         onSuccess(result.zoomJoinUrl)
       } else {
-        setPayError('Card declined — this is a demo, try 4242 4242 4242 4242.')
+        setPayError('Card declined - this is a demo, try 4242 4242 4242 4242.')
       }
     } catch (err) {
-      setPayError(err instanceof Error ? err.message : 'Payment failed — please try again.')
+      setPayError(err instanceof Error ? err.message : 'Payment failed - please try again.')
     } finally {
       setProcessing(false)
     }
@@ -867,7 +867,7 @@ function StepPayment({
       </div>
 
       <div className="mt-4 rounded-xl bg-green-tint px-4 py-3 text-sm text-fresh-green-600">
-        Demo mode — use <strong>4242 4242 4242 4242</strong>, any future date, any CVC.
+        Demo mode - use <strong>4242 4242 4242 4242</strong>, any future date, any CVC.
       </div>
 
       <AnimatePresence>
@@ -961,7 +961,7 @@ function StepPayment({
         )}
       </button>
       <p className="mt-3 text-center text-xs text-text-body/60">
-        Demo checkout — no real charge is made.
+        Demo checkout - no real charge is made.
       </p>
     </div>
   )
@@ -1015,7 +1015,7 @@ function StepConfirmation({
   const zoomUrl = zoomJoinUrl ?? 'https://zoom.us/j/000-000-0000'
   const zoomLabel = zoomUrl.replace(/^https?:\/\//, '').split('?')[0]
   const calOpts = {
-    title: `${service.name} with Roja — Grow With Roja`,
+    title: `${service.name} with Roja - Grow With Roja`,
     date: draft.date!,
     time: draft.slot!,
     minutes: service.minutes,
@@ -1203,8 +1203,8 @@ export default function Booking() {
     setStep(d.step)
     pushToast(
       d.slot && d.holdExpires
-        ? 'Welcome back — your slot is still held'
-        : 'Welcome back — pick up where you left off',
+        ? 'Welcome back - your slot is still held'
+        : 'Welcome back - pick up where you left off',
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -1240,7 +1240,7 @@ export default function Booking() {
       if (left <= 0) {
         setHoldLeft(null)
         setDraft((d) => ({ ...d, slot: null, holdExpires: null }))
-        pushToast('Your held slot was released — pick a new time')
+        pushToast('Your held slot was released - pick a new time')
       } else {
         setHoldLeft(left)
       }
@@ -1296,7 +1296,7 @@ export default function Booking() {
 
   const submitDetails = async () => {
     if (!draft.serviceId || !draft.date || !draft.slot) {
-      setHint('Still loading services — please try again in a moment')
+      setHint('Still loading services - please try again in a moment')
       setTimeout(() => setHint(null), 2500)
       return
     }
@@ -1315,7 +1315,7 @@ export default function Booking() {
       update({ holdExpires: Date.now() + held.holdMinutes * 60_000 })
       pushToast(`Slot held for ${held.holdMinutes}:00 minutes`)
       if (!held.requiresPayment) {
-        pushToast("No payment needed — it's free")
+        pushToast("No payment needed - it's free")
         try {
           const { data: res } = await confirmFreeBooking({ reference: held.reference })
           finishBooking(res.zoomJoinUrl)
@@ -1326,7 +1326,7 @@ export default function Booking() {
         goTo(3)
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Could not reserve that slot — please try again.'
+      const msg = err instanceof Error ? err.message : 'Could not reserve that slot - please try again.'
       setHint(msg)
       setTimeout(() => setHint(null), 4000)
       if (/no longer available/i.test(msg)) {
@@ -1388,7 +1388,7 @@ export default function Booking() {
             Your next step is one click.
           </h2>
           <p className="mt-4 text-[17px] leading-[1.65] text-text-body">
-            Pick a time that suits you. You'll get a Zoom link and a reminder — no account needed.
+            Pick a time that suits you. You'll get a Zoom link and a reminder - no account needed.
           </p>
         </div>
 

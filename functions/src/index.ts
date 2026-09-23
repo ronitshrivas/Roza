@@ -135,7 +135,7 @@ export const payBooking = onCall<{ reference: string; cardLast4: string }>(async
     });
     throw new HttpsError(
       "failed-precondition",
-      "The slot hold expired — please choose the time again",
+      "The slot hold expired - please choose the time again",
     );
   }
 
@@ -207,7 +207,7 @@ export const cancelBooking = onCall<{ reference: string; email: string }>(async 
 
 /**
  * One-time setup helper: grants the `admin: true` custom claim to a user.
- * Protected by the SETUP_SECRET env var — call once from a trusted shell,
+ * Protected by the SETUP_SECRET env var - call once from a trusted shell,
  * then rotate/remove the secret. See README.
  */
 export const setAdminClaim = onCall<{ email: string; secret: string }>(async (req) => {

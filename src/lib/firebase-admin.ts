@@ -6,7 +6,7 @@ import { getAuth } from "firebase-admin/auth";
  * Server-only Firebase Admin SDK.
  *
  * Configure one of:
- *  - FIREBASE_SERVICE_ACCOUNT_JSON — full service-account JSON as a single-line string
+ *  - FIREBASE_SERVICE_ACCOUNT_JSON - full service-account JSON as a single-line string
  *  - FIREBASE_PROJECT_ID + FIREBASE_CLIENT_EMAIL + FIREBASE_PRIVATE_KEY
  */
 function buildCredential() {

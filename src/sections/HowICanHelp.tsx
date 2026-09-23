@@ -32,7 +32,7 @@ const CARDS: Card[] = [
   },
   {
     title: 'Boundaries',
-    copy: 'You say yes when every part of you means no — and pay for it later.',
+    copy: 'You say yes when every part of you means no - and pay for it later.',
     icon: Shield,
   },
   {

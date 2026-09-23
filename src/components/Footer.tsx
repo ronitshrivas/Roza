@@ -10,7 +10,7 @@ export default function Footer() {
             Grow With <span className="font-display italic text-fresh-green">Roja</span>
           </span>
           <p className="max-w-md text-sm leading-relaxed text-white/70">
-            Life &amp; mindset coaching for thoughtful people — NLP, EFT, Ho'oponopono and deep belief work, online via Zoom.
+            Life &amp; mindset coaching for thoughtful people - NLP, EFT, Ho'oponopono and deep belief work, online via Zoom.
           </p>
           <p className="text-sm text-white/60">@GrowWithRoja</p>
         </div>

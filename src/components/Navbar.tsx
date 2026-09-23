@@ -58,7 +58,7 @@ export default function Navbar() {
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-2 text-left"
-            aria-label="Grow With Roja — back to top"
+            aria-label="Grow With Roja - back to top"
           >
             <LeafMark className="h-5 w-5 text-fresh-green" />
             <span className="text-[17px] font-semibold tracking-tight">

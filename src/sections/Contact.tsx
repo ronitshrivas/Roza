@@ -24,7 +24,7 @@ function ContactCards() {
     try {
       await navigator.clipboard.writeText(EMAIL)
     } catch {
-      /* clipboard unavailable — still show feedback */
+      /* clipboard unavailable - still show feedback */
     }
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -91,7 +91,7 @@ function ContactCards() {
     {
       icon: MessageCircle,
       title: 'WhatsApp',
-      copy: 'Quickest reply — usually same day.',
+      copy: 'Quickest reply - usually same day.',
       handle: 'Chat anytime',
       action: (
         <a
@@ -191,10 +191,10 @@ function MiniForm() {
                 >
                   <CheckCircle2 className="h-10 w-10 text-fresh-green" aria-hidden="true" />
                   <p className="text-[15px] font-semibold text-deep-blue">
-                    Thanks {name.trim().split(' ')[0]} — Roja will reply within 24 hours.
+                    Thanks {name.trim().split(' ')[0]} - Roja will reply within 24 hours.
                   </p>
                   <p className="text-sm text-text-body/70">
-                    (Demo — no message is actually sent.)
+                    (Demo - no message is actually sent.)
                   </p>
                 </motion.div>
               ) : (
@@ -274,7 +274,7 @@ export default function Contact() {
             Not ready to book? Just reach out.
           </h2>
           <p className="mt-4 text-[17px] leading-[1.65] text-text-body">
-            Questions about coaching, the program, or whether this is right for you — I'd love to
+            Questions about coaching, the program, or whether this is right for you - I'd love to
             hear from you.
           </p>
         </div>
@@ -289,7 +289,7 @@ export default function Contact() {
           transition={{ duration: 1, ease: EASE }}
           className="mt-14 text-center font-script text-[28px] leading-snug text-fresh-green-600"
         >
-          “Wherever you are is a fine place to start. — Roja”
+          “Wherever you are is a fine place to start. - Roja”
         </motion.p>
       </div>
     </section>

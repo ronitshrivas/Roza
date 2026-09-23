@@ -41,7 +41,7 @@ const SERVICES = [
     id: "coaching",
     slug: "coaching",
     title: "1:1 Coaching Session",
-    description: "Focused deep work on one challenge — leave with clarity and a practice.",
+    description: "Focused deep work on one challenge - leave with clarity and a practice.",
     durationMin: 60,
     priceCents: 12000,
     currency: "AUD",
@@ -51,7 +51,7 @@ const SERVICES = [
   {
     id: "reclaim",
     slug: "reclaim",
-    title: "Reclaim Your Power — 4-Week Program",
+    title: "Reclaim Your Power - 4-Week Program",
     description: "The full journey: See → Release → Rewire → Anchor. 4 sessions + support.",
     durationMin: 60,
     priceCents: 68000,

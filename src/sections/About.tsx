@@ -82,13 +82,13 @@ export default function About() {
             className="mt-6 space-y-4 text-[17px] leading-[1.65] text-text-body"
           >
             <p>
-              I didn't come to this work from a textbook — I came to it through my own
+              I didn't come to this work from a textbook - I came to it through my own
               burnout, my own self-doubt, and the slow realisation that pushing harder
               was never the answer. What changed everything was learning to work
               <em> with</em> myself instead of against myself.
             </p>
             <p>
-              Here's what I believe: people aren't broken — they're patterned. And
+              Here's what I believe: people aren't broken - they're patterned. And
               patterns, with compassion and the right tools, can be rewired. That's the
               work I do now, and there's nothing I'd rather help you with.
             </p>

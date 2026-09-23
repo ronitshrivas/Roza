@@ -22,11 +22,11 @@ export const SERVICES: Service[] = [
     name: '1:1 Coaching Session',
     minutes: 60,
     price: 120,
-    blurb: 'Focused deep work on one challenge — leave with clarity and a practice.',
+    blurb: 'Focused deep work on one challenge - leave with clarity and a practice.',
   },
   {
     id: 'reclaim',
-    name: 'Reclaim Your Power — 4-Week Program',
+    name: 'Reclaim Your Power - 4-Week Program',
     minutes: 60,
     price: 680,
     blurb: 'The full journey: See → Release → Rewire → Anchor. 4 sessions + support.',

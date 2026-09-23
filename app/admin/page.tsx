@@ -422,7 +422,7 @@ function BlockedTab() {
           </p>
         ) : !blocked.length ? (
           <p className="mt-3 rounded-2xl border border-dashed border-grey-line bg-white p-4 text-sm text-text-body/70">
-            No blocked dates — every slot is bookable.
+            No blocked dates - every slot is bookable.
           </p>
         ) : (
           <ul className="mt-3 space-y-2">

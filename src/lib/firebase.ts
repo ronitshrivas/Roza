@@ -19,7 +19,7 @@ const firebaseConfig = {
 // }
 
 /**
- * Client SDK singletons. They are only created in the browser — during SSR /
+ * Client SDK singletons. They are only created in the browser - during SSR /
  * prerendering the exports are inert placeholders that are never dereferenced
  * (all usage happens inside effects, event handlers and callable wrappers).
  */
