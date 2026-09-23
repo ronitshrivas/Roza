@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+functions/lib/
+functions/node_modules/
+.env.local
+.env*.local
+functions/.env
+serviceAccount*.json
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log

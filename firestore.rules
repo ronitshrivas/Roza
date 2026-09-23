@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Services: public read of active services; writes by admin or Cloud Functions (Admin SDK bypasses rules).
+    match /services/{serviceId} {
+      allow read: if resource.data.isActive == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Availability slots: public read of active slots; writes by admin.
+    match /availabilitySlots/{slotId} {
+      allow read: if resource.data.isActive == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Blocked dates: admin only.
+    match /blockedDates/{rangeId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Bookings contain PII: admin-only via client SDK. The public booking
+    // workflow runs entirely through Cloud Functions (Admin SDK).
+    match /bookings/{bookingId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Site settings: public read, admin write.
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}
