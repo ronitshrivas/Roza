@@ -185,11 +185,16 @@ export default function Program() {
       // Desktop: pinned horizontal scroll story
       mm.add('(min-width: 1024px)', () => {
         const panels = gsap.utils.toArray<HTMLElement>('.prog-panel')
+
+        // Make sure every panel's inner items are visible on load; the timeline
+        // below re-animates them in as the user scrolls.
+        gsap.set('.panel-item', { opacity: 1, y: 0 })
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: pinRef.current,
             start: 'top 15%',
-            end: '+=160%',
+            end: '+=200%',
             pin: true,
             scrub: 0.6,
             snap: 1 / 3,
@@ -197,20 +202,28 @@ export default function Program() {
               setActive(Math.min(3, Math.round(self.progress * 3))),
           },
         })
+
+        // 4 panels laid out in a 400%-wide track: slide by -75% to reveal all.
         tl.to(trackRef.current, { xPercent: -75, ease: 'none', duration: 3 }, 0)
         tl.fromTo(fillRef.current, { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: 3 }, 0)
         tl.fromTo(
           dotRef.current,
           { x: 0 },
-          { x: () => (barRef.current ? barRef.current.offsetWidth : 0), ease: 'none', duration: 3 },
+          {
+            x: () => (barRef.current ? barRef.current.offsetWidth : 0),
+            ease: 'none',
+            duration: 3,
+          },
           0,
         )
+
+        // Fade each panel's inner items in as it comes into view.
         panels.forEach((p, i) => {
           tl.fromTo(
             p.querySelectorAll('.panel-item'),
-            { y: 24, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, ease: 'power2.out' },
-            i === 0 ? 0 : i - 0.35,
+            { y: 20, opacity: 0.001 },
+            { y: 0, opacity: 1, duration: 0.4, stagger: 0.06, ease: 'power2.out' },
+            Math.max(0, i - 0.2),
           )
         })
       })
@@ -341,7 +354,7 @@ export default function Program() {
                     'prog-panel prog-fade flex items-center justify-center',
                     reduced
                       ? 'rounded-[20px] border border-white/10 bg-white/5 px-6 py-10'
-                      : 'absolute inset-0 px-6 lg:relative lg:inset-auto lg:w-full lg:shrink-0',
+                      : 'absolute inset-0 px-6 lg:relative lg:inset-auto lg:h-full lg:w-1/4 lg:shrink-0 lg:px-10',
                   )}
                 >
                   <PanelContent stage={s} />
