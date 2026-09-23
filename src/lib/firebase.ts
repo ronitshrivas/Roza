@@ -1,4 +1,4 @@
-import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
+import { getApps, initializeApp, type FirebaseApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, type Auth } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
 import { getFunctions, type Functions } from "firebase/functions";
@@ -12,28 +12,12 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// const isBrowser = typeof window !== "undefined";
-
-// function createApp(): FirebaseApp {
-//   return getApps().length ? getApp() : initializeApp(firebaseConfig);
-// }
-
 /**
- * Client SDK singletons. They are only created in the browser - during SSR /
- * prerendering the exports are inert placeholders that are never dereferenced
- * (all usage happens inside effects, event handlers and callable wrappers).
+ * Firebase is only initialised in the browser when valid config env vars are
+ * present. During SSR, at build time, or in a misconfigured local setup the
+ * exports below are inert placeholders — callers guard with truthy checks or
+ * with the requireX helpers in lib/booking-api.ts.
  */
-// export const firebaseApp: FirebaseApp = isBrowser
-//   ? createApp()
-//   : (null as unknown as FirebaseApp);
-
-// export const auth: Auth = isBrowser ? getAuth(firebaseApp) : (null as unknown as Auth);
-// export const db: Firestore = isBrowser ? getFirestore(firebaseApp) : (null as unknown as Firestore);
-// export const functions: Functions = isBrowser
-//   ? getFunctions(firebaseApp)
-//   : (null as unknown as Functions);
-// export const googleProvider = new GoogleAuthProvider();
-
 const isBrowser = typeof window !== "undefined";
 
 const firebaseEnabled =
@@ -43,7 +27,9 @@ const firebaseEnabled =
   process.env.NEXT_PUBLIC_FIREBASE_API_KEY !== "your-api-key";
 
 export const firebaseApp: FirebaseApp = firebaseEnabled
-  ? initializeApp(firebaseConfig)
+  ? getApps().length
+    ? getApps()[0]
+    : initializeApp(firebaseConfig)
   : (null as unknown as FirebaseApp);
 
 export const auth: Auth = firebaseEnabled
@@ -57,3 +43,7 @@ export const db: Firestore = firebaseEnabled
 export const functions: Functions = firebaseEnabled
   ? getFunctions(firebaseApp)
   : (null as unknown as Functions);
+
+// Google sign-in provider — safe to instantiate even without Firebase config,
+// since GoogleAuthProvider is just a config object, not a live connection.
+export const googleProvider = new GoogleAuthProvider();
