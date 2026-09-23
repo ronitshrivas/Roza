@@ -1,12 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
 import { Calendar, Check } from 'lucide-react'
 import { scrollToId } from '@/lib/scroll'
 
 const HEADLINE = 'Grow the life you keep imagining.'
-const HEADLINE_WORDS = HEADLINE.split(' ')
 
 const TRUST_POINTS = [
   'Free 20-min discovery call',
@@ -15,60 +12,9 @@ const TRUST_POINTS = [
 ]
 
 export default function Hero() {
-  const root = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    const ctx = gsap.context(() => {
-      if (reducedMotion) {
-        gsap.set('[data-hero]', { opacity: 1, y: 0 })
-        gsap.set('[data-char]', { opacity: 1, y: 0, rotate: 0 })
-        gsap.set('[data-photo]', { clipPath: 'inset(0% 0 0 0)' })
-        gsap.set('[data-badge]', { opacity: 1, scale: 1 })
-        return
-      }
-
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-
-      tl.fromTo(
-        '[data-eyebrow]',
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', duration: 0.6, delay: 0.1 },
-      )
-      tl.fromTo(
-        '[data-char]',
-        { y: 24, rotate: 4, opacity: 0 },
-        { y: 0, rotate: 0, opacity: 1, duration: 0.7, stagger: 0.018 },
-        0.25,
-      )
-      tl.fromTo(
-        '[data-hero]',
-        { y: 32, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.65, stagger: 0.08 },
-        0.5,
-      )
-      tl.fromTo(
-        '[data-photo]',
-        { clipPath: 'inset(100% 0 0 0)' },
-        { clipPath: 'inset(0% 0 0 0)', duration: 0.9 },
-        0.35,
-      )
-      tl.fromTo(
-        '[data-badge]',
-        { scale: 0.6, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.55, ease: 'back.out(2)' },
-        1.05,
-      )
-    }, root)
-
-    return () => ctx.revert()
-  }, [])
-
   return (
     <section
       id="hero"
-      ref={root}
       aria-labelledby="hero-heading"
       className="relative overflow-hidden bg-white"
     >
@@ -87,11 +33,8 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto flex min-h-[100dvh] max-w-site flex-col justify-center gap-10 px-4 pb-20 pt-12 sm:gap-12 sm:px-5 sm:pb-24 sm:pt-16 lg:flex-row lg:items-center lg:gap-16 lg:px-10">
-        <div className="lg:w-[55%]">
-          <p
-            data-eyebrow
-            className="flex items-center gap-2 font-script text-xl text-fresh-green-600 sm:text-2xl"
-          >
+        <div className="hero-fade-in lg:w-[55%]">
+          <p className="flex items-center gap-2 font-script text-xl text-fresh-green-600 sm:text-2xl">
             Hi, I&apos;m Roja
             <img
               src="/leaf-line.svg"
@@ -105,42 +48,16 @@ export default function Hero() {
             id="hero-heading"
             className="font-display-lg mt-4 font-display text-[34px] font-medium leading-[1.08] tracking-[-0.01em] text-deep-blue sm:text-[40px] lg:text-[64px]"
           >
-            <span className="sr-only">{HEADLINE}</span>
-            <span aria-hidden="true">
-              {HEADLINE_WORDS.map((word, wi) => (
-                <span key={wi}>
-                  <span className="inline-block">
-                    {word.split('').map((ch, ci) => (
-                      <span
-                        key={ci}
-                        data-char
-                        className="inline-block will-change-transform"
-                      >
-                        {ch}
-                      </span>
-                    ))}
-                  </span>
-                  {wi < HEADLINE_WORDS.length - 1 && (
-                    <span className="inline-block">&nbsp;</span>
-                  )}
-                </span>
-              ))}
-            </span>
+            {HEADLINE}
           </h1>
 
-          <p
-            data-hero
-            className="mt-6 max-w-[46ch] text-base leading-[1.65] text-text-body sm:text-[17px] lg:text-lg"
-          >
+          <p className="mt-6 max-w-[46ch] text-base leading-[1.65] text-text-body sm:text-[17px] lg:text-lg">
             I help thoughtful people move past emotional exhaustion and self-doubt,
             using NLP, EFT, Ho&apos;oponopono and deep belief work, so they can set
             boundaries, break old patterns, and feel like themselves again.
           </p>
 
-          <div
-            data-hero
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <button
               onClick={() => scrollToId('book')}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-fresh-green px-7 py-3.5 text-[15px] font-semibold tracking-[0.01em] text-white transition-all duration-200 hover:bg-fresh-green-600 hover:shadow-cta-glow active:scale-[0.97]"
@@ -156,10 +73,7 @@ export default function Hero() {
             </button>
           </div>
 
-          <ul
-            data-hero
-            className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-text-body"
-          >
+          <ul className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px] text-text-body">
             {TRUST_POINTS.map((point, i) => (
               <li key={point} className="flex items-center gap-3">
                 {i > 0 && (
@@ -177,13 +91,12 @@ export default function Hero() {
           </ul>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] lg:w-[45%] lg:max-w-[440px]">
+        <div className="hero-fade-in relative mx-auto w-full max-w-[320px] sm:max-w-[380px] lg:w-[45%] lg:max-w-[440px]">
           <div
             aria-hidden="true"
             className="absolute inset-0 -rotate-2 translate-x-3 translate-y-4 rounded-[24px] bg-green-tint"
           />
           <div
-            data-photo
             className="relative overflow-hidden shadow-card"
             style={{ borderRadius: '999px 999px 24px 24px' }}
           >
@@ -199,10 +112,7 @@ export default function Hero() {
             aria-hidden="true"
             className="absolute -left-4 -top-4 h-12 w-12 -rotate-12 opacity-70 sm:-left-6 sm:-top-6 sm:h-16 sm:w-16"
           />
-          <div
-            data-badge
-            className="absolute -bottom-4 left-2 flex max-w-[calc(100%-1rem)] items-center gap-3 rounded-2xl bg-white p-3 shadow-card sm:-bottom-5 sm:-left-6 sm:p-4 lg:-left-10"
-          >
+          <div className="absolute -bottom-4 left-2 flex max-w-[calc(100%-1rem)] items-center gap-3 rounded-2xl bg-white p-3 shadow-card sm:-bottom-5 sm:-left-6 sm:p-4 lg:-left-10">
             <span className="shrink-0 rounded-full bg-warm-gold/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-warm-gold sm:text-[11px]">
               Signature
             </span>
@@ -224,8 +134,39 @@ export default function Hero() {
         <span className="relative h-10 w-px overflow-hidden bg-grey-line">
           <span className="absolute inset-x-0 top-0 h-4 animate-[scrollcue_1.6s_ease-in-out_infinite] bg-fresh-green" />
         </span>
-        <style>{`@keyframes scrollcue { 0%{transform:translateY(-100%)} 100%{transform:translateY(300%)} }`}</style>
       </div>
+
+      <style jsx>{`
+        @keyframes scrollcue {
+          0% {
+            transform: translateY(-100%);
+          }
+          100% {
+            transform: translateY(300%);
+          }
+        }
+        .hero-fade-in {
+          animation: heroFadeIn 0.8s ease-out both;
+        }
+        .hero-fade-in:nth-child(2) {
+          animation-delay: 0.15s;
+        }
+        @keyframes heroFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(16px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-fade-in {
+            animation: none;
+          }
+        }
+      `}</style>
     </section>
   )
 }
