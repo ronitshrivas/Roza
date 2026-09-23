@@ -1,7 +1,7 @@
 "use client";
 
-import { httpsCallable } from "firebase/functions";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { httpsCallable, type Functions } from "firebase/functions";
+import { collection, getDocs, query, where, type Firestore } from "firebase/firestore";
 import { db, functions } from "@/lib/firebase";
 
 export interface ApiService {
@@ -35,20 +35,54 @@ export interface PayResult {
   zoomJoinUrl?: string;
 }
 
+/**
+ * Firebase is only initialised in the browser when valid config env vars are
+ * present. During SSR, at build time, or in a misconfigured local setup the
+ * `functions` and `db` exports may be null, so every API call goes through
+ * these guards instead of touching the SDK at module scope.
+ */
+function requireFunctions(): Functions {
+  if (!functions) {
+    throw new Error(
+      "Firebase is not configured. Add your Firebase credentials to .env.local to enable bookings.",
+    );
+  }
+  return functions;
+}
+
+function requireDb(): Firestore {
+  if (!db) {
+    throw new Error(
+      "Firebase is not configured. Add your Firebase credentials to .env.local to enable bookings.",
+    );
+  }
+  return db;
+}
+
 /** Public read of active services straight from Firestore (allowed by rules). */
 export async function fetchServices(): Promise<ApiService[]> {
-  const snap = await getDocs(query(collection(db, "services"), where("isActive", "==", true)));
-  const rows = snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<ApiService, "id">) }));
+  const snap = await getDocs(
+    query(collection(requireDb(), "services"), where("isActive", "==", true)),
+  );
+  const rows = snap.docs.map((d) => ({
+    id: d.id,
+    ...(d.data() as Omit<ApiService, "id">),
+  }));
   return rows.sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
-const callable = <Req, Res>(name: string) => httpsCallable<Req, Res>(functions, name);
+// Callables are wrapped so `httpsCallable` runs at call time, not on import.
+// If we ran it at import time and `functions` was null, the whole page would
+// crash with "null is not an object (evaluating 'functionsInstance._url')".
+function call<Req, Res>(name: string) {
+  return (data: Req) => httpsCallable<Req, Res>(requireFunctions(), name)(data);
+}
 
-export const getAvailability = callable<{ year: number; month: number }, AvailabilityDay[]>(
+export const getAvailability = call<{ year: number; month: number }, AvailabilityDay[]>(
   "getAvailability",
 );
 
-export const holdBooking = callable<
+export const holdBooking = call<
   {
     serviceId: string;
     date: string;
@@ -61,14 +95,14 @@ export const holdBooking = callable<
   HoldResult
 >("holdBooking");
 
-export const payBooking = callable<{ reference: string; cardLast4: string }, PayResult>(
+export const payBooking = call<{ reference: string; cardLast4: string }, PayResult>(
   "payBooking",
 );
 
-export const confirmFreeBooking = callable<{ reference: string }, PayResult>(
+export const confirmFreeBooking = call<{ reference: string }, PayResult>(
   "confirmFreeBooking",
 );
 
-export const cancelBooking = callable<{ reference: string; email: string }, { ok: boolean }>(
+export const cancelBooking = call<{ reference: string; email: string }, { ok: boolean }>(
   "cancelBooking",
 );
