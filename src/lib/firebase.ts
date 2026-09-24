@@ -12,12 +12,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-/**
- * Firebase is only initialised in the browser when valid config env vars are
- * present. During SSR, at build time, or in a misconfigured local setup the
- * exports below are inert placeholders — callers guard with truthy checks or
- * with the requireX helpers in lib/booking-api.ts.
- */
+
 const isBrowser = typeof window !== "undefined";
 
 const firebaseEnabled =

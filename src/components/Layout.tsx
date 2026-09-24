@@ -1,8 +1,9 @@
 'use client'
-import type { ReactNode } from 'react'
-import { useEffect } from 'react'
+
+import { useEffect, type ReactNode } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import WhatsAppButton from './WhatsAppButton'
 import { initLenis } from '@/lib/scroll'
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -15,6 +16,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Navbar />
       <main>{children}</main>
       <Footer />
+      <WhatsAppButton />
     </div>
   )
 }
